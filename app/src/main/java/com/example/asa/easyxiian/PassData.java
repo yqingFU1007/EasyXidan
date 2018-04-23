@@ -10,19 +10,19 @@ import java.io.Serializable;
 
 public class PassData implements Serializable{
 
-    private HttpClient mClient;
+    private Client mClient;
     private String mJSESSIONID;
     private String mUserName;
     private String mPassword;
 
-    public PassData(HttpClient client,String JSESSIONID,String userName,String password){
+    public PassData(Client client,String JSESSIONID,String userName,String password){
         mClient = client;
         mJSESSIONID = JSESSIONID;
         mUserName = userName;
         mPassword = password;
     }
 
-    public HttpClient getmClient(){
+    public Client getmClient(){
         return mClient;
     }
 

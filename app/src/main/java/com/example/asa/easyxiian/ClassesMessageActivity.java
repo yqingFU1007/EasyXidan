@@ -11,32 +11,25 @@ import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.methods.GetMethod;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 public class ClassesMessageActivity extends AppCompatActivity {
 
     final static String classInforURL = "http://jwxt.xidian.edu.cn/xkAction.do?actionType=6";
 
-    PassData mData;
-    HttpClient mClient;
-    String mJSESSION;
-    String mClassInfo;
+
+    HttpClient mClient = Client.getHttpClient();
     TextView mTextView;
+    String mClassInfo;
+    String mJSESSION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_classes_message);
 
-        final Intent intent = this.getIntent();
-        mData = (PassData) intent.getExtras().getSerializable("info");
-        mClient = mData.getmClient();
-        mJSESSION = mData.getmJSESSIONID();
-        Log.e("ClassesMessageActivity","" + mJSESSION);
-
-//        final Intent intent = this.getIntent();
-//        mData = (PassData) intent.getSerializableExtra("info");
-//        mClient = mData.getmClient();
-//        mJSESSION = mData.getmJSESSIONID();
+        Intent intent = this.getIntent();
+        mJSESSION = intent.getStringExtra("JSESSION");
 
 
         mTextView = (TextView)findViewById(R.id.class_info);

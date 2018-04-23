@@ -11,11 +11,10 @@ import org.apache.commons.httpclient.HttpClient;
 
 public class MenuActivity extends AppCompatActivity {
 
-    PassData mData;
-    HttpClient mClient;
+
+    HttpClient mClient = Client.getHttpClient();
     String mJSESSION;
-    String mUserName;
-    String mPassword;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +22,7 @@ public class MenuActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
 
         final Intent intent = this.getIntent();
-        mData = (PassData) intent.getExtras().getSerializable("info");
-        mClient = mData.getmClient();
-        mJSESSION = mData.getmJSESSIONID();
-        Log.e("MenuActivity",mJSESSION + "");
-        mUserName = mData.getmUserName();
-        mPassword = mData.getmPassword();
-
+        mJSESSION = intent.getStringExtra("JSESSION");
 
 
         TextView classInfo = (TextView)findViewById(R.id.class_info);
@@ -38,11 +31,26 @@ public class MenuActivity extends AppCompatActivity {
             public void onClick(View view) {
 
 
-                PassData data = new PassData(mClient,mJSESSION,mUserName,mPassword);
+
                 Intent intentClassInfo = new Intent(MenuActivity.this,ClassesMessageActivity.class);
-                Bundle bundleClassInfo = new Bundle();
-                bundleClassInfo.putSerializable("info",data);
-                intentClassInfo.putExtras(bundleClassInfo);
+                Bundle bundle = new Bundle();
+                bundle.putString("JSESSION",mJSESSION);
+                intent.putExtras(bundle);
+                startActivity(intentClassInfo);
+            }
+        });
+
+        TextView scoresInfo = (TextView)findViewById(R.id.scores_info);
+        scoresInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+
+
+                Intent intentClassInfo = new Intent(MenuActivity.this,ScoresActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putString("JSESSION",mJSESSION);
+                intent.putExtras(bundle);
                 startActivity(intentClassInfo);
             }
         });

@@ -64,46 +64,44 @@ public class MainActivity extends AppCompatActivity {
         new LogInTask().execute();
 
 
-        new getClassesInformationTask().execute(classInforURL);
+        //new getClassesInformationTask().execute(classInforURL);
 
-//        while (!mIsLogIn){}
-//        Bundle bundle = new Bundle();
-//        PassData data = new PassData(mClient,mJSESSION,mUserName,mPassWord);
-//        Log.e("Pre",mJSESSION);
-//        bundle.putSerializable("info",data);
+        while (!mIsLogIn){}
+
+        Bundle bundle = new Bundle();
+        bundle.putString("JSESSION",mJSESSION);
+        Intent intent = new Intent(MainActivity.this,MenuActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+
+
+
+
+    }
+
+//    private class getClassesInformationTask extends AsyncTask<String, Void, String> {
 //
-//        Intent intent = new Intent(MainActivity.this,MenuActivity.class);
-//        intent.putExtras(bundle);
-//        startActivity(intent);
-
-
-
-
-    }
-
-    private class getClassesInformationTask extends AsyncTask<String, Void, String> {
-
-        @Override
-        protected String doInBackground(String... strings) {
-            String result = null;
-            GetMethod getMethod = null;
-
-            try {
-                getMethod = NetworkUtils.getMethodUseCookie(mClient, mJSESSION, strings[0]);
-                result = getMethod.getResponseBodyAsString();
-                mClassInfo = result;
-            } catch (IOException e) {
-                Log.e("MainActivity", "使用Cookie的GET失败。");
-            }
-
-            return result;
-        }
-
-        @Override
-        protected void onPostExecute(String s) {
-            mTextViewUserName.setText(s);
-        }
-    }
+//        @Override
+//        protected String doInBackground(String... strings) {
+//            String result = null;
+//            GetMethod getMethod = null;
+//
+//            try {
+//                getMethod = NetworkUtils.getMethodUseCookie(mClient, mJSESSION, strings[0]);
+//                result = getMethod.getResponseBodyAsString();
+//                mClassInfo = result;
+//            } catch (IOException e) {
+//                Log.e("MainActivity", "使用Cookie的GET失败。");
+//            }
+//
+//            return result;
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String s) {
+//            mTextViewUserName.setText(s);
+//        }
+//    }
 
 
 
@@ -111,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected Boolean doInBackground(String... strings) {
-            mClient = new HttpClient();
+            mClient = Client.getHttpClient();
             String data[] = new String[2];
             String result = null;
 
